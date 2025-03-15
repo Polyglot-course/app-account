@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment-account
+  labels:
+    app: service-account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-account
+  template:
+    metadata:
+      labels:
+        app: service-account
+    spec:
+      containers:
+      - name: app-account
+        image: polyglotxt/nodejs-aws-account:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NACOS_SERVERADDR
+          value: "18.216.235.222:8848"
+        - name: NACOS_NAMESPACE
+          value: "polyglot"
+        - name: NACOS_IDENTITYKEY
+          value: "nacos"
+        - name: NACOS_IDENTITYVALUE
+          value: "nacos"
+        - name: NACOS_ENV
+          value: "PROD"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service-account
+spec:
+  type: ClusterIP
+  selector:
+    app: service-account
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+    name: http
