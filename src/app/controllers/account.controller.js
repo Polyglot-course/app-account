@@ -1,6 +1,9 @@
+const logProvider = require('../middlewares/logprovider')
 const accountService = require('../services/account.service')
 
 const getAccounts = async (req, res) => {
+    console.log('Get Accounts');
+    logProvider.info('Get Accounts');
     return res.send(await accountService.getAccounts())
 }
 
