@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app-account
-        image: polyglotxt/nodejs-aws-account:1
+        image: loaizamateo96/nodejs-aws-account:1
         ports:
         - containerPort: 8080
         env:
